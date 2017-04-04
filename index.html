@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Music Networks</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="blog.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+      
+  </head>
+
+  <body>
+
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item active" href="index.html">Home</a>
+          <a class="blog-nav-item" href="tribe_1.html">Tribe Sentiment Plots</a>
+        </nav>
+      </div>
+    </div>
+      
+
+    <div class="container">
+
+      <div class="blog-header">
+        <h1 class="blog-title">The Tribe's Quest</h1>
+        <p class="lead blog-description">How A Tribe Called Quest's music evolved over time</p>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-8 blog-main">
+
+          <div class="blog-post">
+              
+              
+
+            <hr>
+            <h2>Introduction and Method</h2>  
+            <p>For my first synthesis, I attempted to quantify the sadness of one of my favorite artists, A Tribe Called Quest, who are an American hip-hop group. I wanted to display a data-driven explanation of sadness, and I also wanted to chart this sadness over time. This was because I was interested to see if we could see any changes in the sentiments of the music as the group got older, especially with the release of their last album. This last album, We Got It From Here… Thank You 4 Your Service marks the groups final release ever and was released in the wake of the death of one of the groups member’s Phife Dawg. He died right before the album was put together and mastered, so one would assume that this last album would be much more somber when compared to the other albums. Another thing I wanted to show was the overall trends in the sentiment of Hip-Hop, an idea which I got from <a href="https://bigishdata.com/2017/01/14/popular-music-lyrics-have-become-more-negative-over-the-decades/">this</a> blog post which modelled the sentiments of all popular music over time. It is my personal hypothesis that hip-hop is slowly getting more and more happy and upbeat overall, and I wanted to see if this model came out to be true. However, I came across some difficulties and was unable to model this. </p>
+            <p>For my method, the language I decided to use was R. This was a personal choice because I desired to learn the language, regardless of if there was a better language for the task. I scraped spotify using its web API (because of the detailed audio statistics that it gives you). This included valence, which measure’s a song’s popularity. The official API documentation states that it is a measure form 0.0 to 1.0 of the musical positiveness conveyed by a track. SO, track with a high valence sound more positive while tracks with a low valence sound negative. This measure however is still very vague, and Spotify does not clarify how they achieve this measure in particular (i.e. whether or not it is lyrical or musical). It is specified that this and the other types of measures they provide (like key, danceability, etc.) are all computed by and algorithm called “Truffle Pig” which was developed by the Spotify subsidiary The Echo Nest. However, while measures like key seem self-explanatory, I was not able to figure out what actually comprises the valence measure. I also used the Genius API to scrape the lyrics of each song in A Tribe Called Quest’s six studio albums. This was because in addition to valence, I also wanted to compute the base lyrical sentiment as well and combine it with the valence measure. To combine these, I used the measure of lyrical density, which was derived from <a href="https://www.r-bloggers.com/everything-in-its-right-place-visualization-and-content-analysis-of-radiohead-lyrics/">this bloggers</a> analysis of Radio Head lyrics. The sentiment itself was computed using the R package tidytext, which contains a sentiment lexicon called the NRC lexicon. With this data, I used the HichCharter package (an R wrapper for a JavaScript plotting framework) to plot a scatter plot of the albums and the songs. </p>
+              <p>An Image of the Plot: </p>
+            <img src="tribeplot.png" style="width:750px;">
+              <hr>
+              <a href="tribe_1.html">Link To Plot Itself</a>
+              
+            <h2>Plot analysis and retrospective</h2>
+            <p>This chart seems to confirm my hypothesis that the last album would be much sadder than the others. Many of the songs directly reference the loss of their member, and in general the album seems almost self-aware that this is the end for the group, and end on a sort of somber note. The album also contains many social references to the groups views on how society is moving backwards and about the careless treatment of their generations children. This album is in stark contrast with the rest of their discography, which seems to steadily rise in overall happiness. </p>
+            
+            <p>In retrospect, there were a few things that I wish I could have done differently. The biggest regret was that I couldn’t make a scatter plot that charted multiple artists over time work. This was because I couldn’t get a data structure that held multiple artists and plotted the albums on the y-axis to work correctly. This really is regrettable because from this information I wanted to explore hip-hop and its sentiments over time as a whole. This genre is heavily connected to the black community, and my hypothesis was that as the black community continues to prosper and drag itself out of decades of oppression, that the music would follow this trend. I expected to see a sort of hopeful incline in the sentiments of hip-hop, but I could not get this done.  If I did this again I would also compute the sentiment in a better way. The current calculation gets rid of all stop words and does not take into account ngrams, both of which are very important for calculating sentiment. I did not have enough time or know-how to change this measure however, and I am stuck with the current calculations. </p>
+            
+          </div><!-- /.blog-post -->
+
+            <div class="sidebar-module">
+            <h4>Links</h4>
+            <ol class="list-unstyled">
+              <li><a href="https://bigishdata.com/2017/01/14/popular-music-lyrics-have-become-more-negative-over-the-decades/">Biggish data, Popular Music Analysis</a></li>
+              <li><a href="https://www.r-bloggers.com/everything-in-its-right-place-visualization-and-content-analysis-of-radiohead-lyrics/">R-Bloggers Lyrical Density</a></li>
+              <li><a href="https://developer.spotify.com/web-api/">Spotify API docs</a></li>
+                <li><a href="https://docs.genius.com/">Genius API docs</a></li>
+            </ol>
+          </div>
+        </div><!-- /.blog-sidebar -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
